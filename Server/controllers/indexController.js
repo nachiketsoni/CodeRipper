@@ -38,6 +38,7 @@ exports.login = AsyncError(async (req, res, next) => {
   /**@api POST / signup */
 exports.signup = AsyncError(async (req, res, next) => {
     const { name, email, password } = req.body;
+    // res.json(req.body)
     const defaultIMG =
       "https://img.freepik.com/free-psd/3d-illustration-person_23-2149436192.jpg?w=740&t=st=1665479565~exp=1665480165~hmac=a506127a19be062f341ab4d2e9767e3a1593d6e20efd3762ebfcb19cc39e49d1  ";
     if (!email || !password || !name) {
@@ -62,5 +63,6 @@ exports.signup = AsyncError(async (req, res, next) => {
       },
     });
     const createdUser = await user.save();
-    sendToken(res, 200, createdUser);
+    res.status(200).json(createdUser)
+    // sendToken(res, 200, createdUser);
   });

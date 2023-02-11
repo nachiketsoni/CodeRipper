@@ -11,7 +11,6 @@ exports.isLoggedIn = AsyncErrors(async (req, res, next) => {
           }
         
           const data = jwt.verify(token, process.env.JWTSECRET);
-        
           req.user = await User.findById(data.id);
         
           next();

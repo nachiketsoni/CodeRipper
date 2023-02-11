@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-const { Homepage, signup, login, logout, update } = require('../controllers/indexController.js');
+const { Homepage, signup, login, logout, update, getSingleUser, getAllUsers, getLoggedInUser, getMyGeneratedWaste } = require('../controllers/indexController.js');
+const { isAdmin } = require('../utils/isAdmin.js');
 const { isLoggedIn } = require('../utils/isLoggedIn.js');
 /* GET home page. */
 router.get('/',Homepage);
@@ -16,6 +17,15 @@ router.post("/login", login)
 router.get("/logout", logout)
 
 /**@api POST / update */
-router.post("/update",isLoggedIn, update)
+router.post("/update/:id",isLoggedIn, isAdmin, update);
+
+router.get("/getUser/:id",isLoggedIn, getSingleUser);
+
+/**@api GETT / get all users, only accessible by admin */
+router.get("/getAllUsers",isLoggedIn, isAdmin, getAllUsers);
+
+router.get('/getLoggedInUser', isLoggedIn, getLoggedInUser);
+
+router.get('/getMyGeneratedWaste', isLoggedIn, getMyGeneratedWaste);
 
 module.exports = router;

@@ -15,45 +15,45 @@ exports.login = AsyncError(async (req, res, next) => {
   const { email, password } = req.body;
 
   /**@api POST / signup */
-  exports.signup = async (req, res, next) => {
+exports.signup = (async (req, res, next) => {
     try {
       const { name, email, password } = req.body;
-      // res.json(req.body)
-      const defaultIMG =
-        "https://img.freepik.com/free-psd/3d-illustration-person_23-2149436192.jpg?w=740&t=st=1665479565~exp=1665480165~hmac=a506127a19be062f341ab4d2e9767e3a1593d6e20efd3762ebfcb19cc39e49d1  ";
-      if (!email || !password || !name) {
-        return next(
-          new ErrorHandler("Please Enter Name , Email & Password", 400)
-        );
-      }
-      try {
-        var { public_id, secure_url } = await cloudinary.v2.uploader.upload(
-          defaultIMG,
-          {
-            folder: `Hackathon/${email}`,
-            fetch_format: "webp",
-            quality: "50",
-          }
-        );
-      } catch (err) {
-        console.log(err);
-      }
-
-      const user = new User({
-        name,
-        email,
-        password,
-        avatar: {
-          public_id,
-          url: secure_url,
-        },
-      });
-      const createdUser = await user.save();
-      sendToken(res, 200, createdUser);
-    } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
+    // res.json(req.body)
+    const defaultIMG =
+      "https://img.freepik.com/free-psd/3d-illustration-person_23-2149436192.jpg?w=740&t=st=1665479565~exp=1665480165~hmac=a506127a19be062f341ab4d2e9767e3a1593d6e20efd3762ebfcb19cc39e49d1  ";
+    if (!email || !password || !name) {
+      return next(new ErrorHandler("Please Enter Name , Email & Password", 400));
     }
-  };
+    try{
+      
+      var { public_id, secure_url } = await cloudinary.v2.uploader.upload(
+        defaultIMG,
+        {
+          folder: `Hackathon/${email}`,
+          fetch_format: "webp",
+          quality: "50",
+        }
+      );
+    }catch(err){
+      console.log(err)
+    }
+
+  
+    const user = new User({
+      name,
+      email,
+      password,
+      avatar: {
+        public_id,
+        url: secure_url,
+      },
+    });
+    const createdUser = await user.save();
+    sendToken(res, 200, createdUser);
+    } catch (error) {
+      res.status(500).json({success: false, message: error.message });
+    }
+  });
   const createdUser = await user.save();
   sendToken(res, 200, createdUser);
 });
@@ -92,53 +92,52 @@ exports.sendOTP = AsyncError(async (req, res, next) => {
       res.json(201).json({ message: "OTP sent successfully" })
     );
 });
-exports.update = async (req, res, next) => {
+exports.update = (async (req, res, next) => {
   try {
     const data = req.body;
-    const user = await User.findByIdAndUpdate(req.params.id, data, {
-      new: true,
-    });
+    const user = await User.findByIdAndUpdate(req.params.id , data, {
+      new: true} )
     await user.save();
     res.status(200).json({ success: true, user });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({success: false, message: error.message });
   }
-};
+});
 
 /**
  * @api GET / profile of user
  */
-exports.getSingleUser = async (req, res, next) => {
+exports.getSingleUser = (async (req, res, next) =>  {
   const user = await User.findById(req.params.id);
   res.status(200).json({ success: true, user });
-};
+});
 
 /**
  * @api GET / get all users
  */
-exports.getAllUsers = async (req, res, next) => {
+exports.getAllUsers  = (async (req, res, next) =>  {      
   try {
     const users = await User.find();
     res.status(200).json({ success: true, users });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({success: false, message: error.message });
   }
-};
+});
 
-exports.getLoggedInUser = async (req, res, next) => {
+exports.getLoggedInUser = (async (req, res, next) =>  {   
   try {
     const user = await User.findById(req.user._id);
     res.status(200).json({ success: true, user });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({success: false, message: error.message });
   }
-};
+});
 
-exports.getMyGeneratedWaste = async (req, res, next) => {
+exports.getMyGeneratedWaste = (async (req, res, next) =>  {
   try {
     const user = await User.findById(req.user._id).populate("request");
     res.status(200).json({ success: true, user });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({success: false, message: error.message });
   }
-};
+});

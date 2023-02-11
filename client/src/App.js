@@ -1,6 +1,10 @@
 import React from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import Home from './Components/Home/Home'
+
+import Service from './Components/Service/service'
+import Pickup from './Components/Pickup/Pickup'
+
 import Register from './Components/Register/Register'
 
 const App = () => {

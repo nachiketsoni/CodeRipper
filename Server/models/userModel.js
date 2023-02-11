@@ -28,15 +28,15 @@ const userSchema = Schema({
                   },
           address:{
                      type:String,
-
+                     default:""   
                   },
           city:{
                      type:String,
-
+                default:""
                   },
           state:{
                      type:String,
-
+                     default:""
                   },
           zipcode:{
                      type:String,
@@ -57,7 +57,11 @@ const userSchema = Schema({
                     type:String,    
                     default:"user"
             },
-            pickup_frequency:{
+            request:[{
+                        type:Schema.Types.ObjectId,
+                        ref:"Waste"
+            }],
+            pickup_frequency_mode:{
                     type:String,
                     default:"saturday"
             },
@@ -81,8 +85,6 @@ const userSchema = Schema({
                     type:Date,
                     default:Date.now
             },
-            
-
         
 
 

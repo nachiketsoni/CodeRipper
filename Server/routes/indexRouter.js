@@ -28,6 +28,8 @@ router.get('/getLoggedInUser', isLoggedIn, getLoggedInUser);
 
 router.get('/getMyGeneratedWaste', isLoggedIn, getMyGeneratedWaste);
 
+
+
 /**@api POST / send otp to phone number */
 router.post("/sendOtp", sendOTP);
 module.exports = router;

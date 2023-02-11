@@ -12,8 +12,12 @@ var app = express();
 
 const {DBconnection} = require('./configs/DBconnection');
 DBconnection();
-// view engine setup
 
+const cors = require('cors');
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}));
 
 app.use(logger('dev'));
 app.use(express.json());

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { Homepage, signup, login, logout, update, getSingleUser, getAllUsers, getLoggedInUser, getMyGeneratedWaste } = require('../controllers/indexController.js');
+const { Homepage, signup, login, logout, update, getSingleUser, getAllUsers, getLoggedInUser, getMyGeneratedWaste,sendOTP } = require('../controllers/indexController.js');
 const { isAdmin } = require('../utils/isAdmin.js');
 const { isLoggedIn } = require('../utils/isLoggedIn.js');
 /* GET home page. */
@@ -28,4 +28,6 @@ router.get('/getLoggedInUser', isLoggedIn, getLoggedInUser);
 
 router.get('/getMyGeneratedWaste', isLoggedIn, getMyGeneratedWaste);
 
+/**@api POST / send otp to phone number */
+router.post("/sendOtp", sendOTP);
 module.exports = router;

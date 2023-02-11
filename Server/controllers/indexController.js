@@ -133,3 +133,22 @@ exports.getMyGeneratedWaste = (async (req, res, next) =>  {
     res.status(500).json({success: false, message: error.message });
   }
 });
+
+/** @api POST / send otp to phone number */
+
+exports.sendOTP = AsyncError(async (req, res, next) => {
+  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  const client = require("twilio")(accountSid, authToken);
+  const OTP = Math.floor(1000 + Math.random() * 9000);
+
+  client.messages
+    .create({
+      body: `OTP for verifying the request is ${OTP}`,
+      to: `${req.body.countryCode}${req.body.number}`, // Text this number
+      from: process.env.TWILIO_PHONE_NUMBER, // From a valid Twilio number
+    })
+    .then((message) =>
+      res.json(201).json({ message: "OTP sent successfully" })
+    );
+});

@@ -1,0 +1,35 @@
+#box{
+    width: 350px;
+    height: 520px; 
+    /* background-color: red; */
+    background-image: url(../../assets/bg-reg.jpg);
+}
+
+#formBox{
+    width: 70%;
+    height: 50%;
+    background-color: #d4fdc5b5;
+    position: relative;
+}
+
+#profile_circle{
+    width: 40%;
+    height: 40%;
+    background-color: white;
+    border-radius: 50%;
+    border: .5px solid darkgreen;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btnType{
+    width: 90%;
+    height: 40px;
+    background-color: rgba(115, 227, 100, 0.808);
+    border-radius: 5px;
+    border: none;
+    color: #2c6419;
+    font-weight: 500;
+    padding-left: 5px;
+}

@@ -1,6 +1,7 @@
 const { sendToken } = require("../utils/auth");
 const formidable = require("formidable");
 const cloudinary = require("cloudinary");
+const { cloudinaryConfig } = require("../configs/cloudinary");
 const User = require("../models/userModel");
 const ErrorHandler = require("../utils/errorHandler.js");
 const AsyncError = require("../middleware/asyncErrors");
@@ -44,14 +45,20 @@ exports.signup = AsyncError(async (req, res, next) => {
     if (!email || !password || !name) {
       return next(new ErrorHandler("Please Enter Name , Email & Password", 400));
     }
-    const { public_id, secure_url } = await cloudinary.v2.uploader.upload(
-      defaultIMG,
-      {
-        folder: `hackathon/${email}`,
-        fetch_format: "webp",
-        quality: "50",
-      }
-    );
+    try{
+      
+      var { public_id, secure_url } = await cloudinary.v2.uploader.upload(
+        defaultIMG,
+        {
+          folder: `Hackathon/${email}`,
+          fetch_format: "webp",
+          quality: "50",
+        }
+      );
+    }catch(err){
+      console.log(err)
+    }
+
   
     const user = new User({
       name,
@@ -63,6 +70,22 @@ exports.signup = AsyncError(async (req, res, next) => {
       },
     });
     const createdUser = await user.save();
-    res.status(200).json(createdUser)
-    // sendToken(res, 200, createdUser);
+    sendToken(res, 200, createdUser);
   });
+
+  /**@api GET / logout */
+exports.logout = AsyncError((req, res, next) => {
+  res.clearCookie("token");
+  res.status(200).json({ message: "user logged out" });
+});
+
+/**@api POST / update */
+exports.update = AsyncError(async (req, res, next) => {
+  const data = req.body;
+  const user = await User.findByIdAndUpdate(req.user._id , data, {
+    new: true} )
+  await user.save();
+  res.status(200).json({ success: true, user });
+});
+
+

@@ -15,5 +15,11 @@ console.log(user)
     // res.cookie("token", token, cookieOptions);
     //  res.status(200).json("login");
 
-    res.status(statuscode).cookie("token", token, cookieOptions).redirect("/");
+    res.status(statuscode).cookie("token", token, cookieOptions).json({
+        success: true,
+        token,
+        user,
+        })
+        ;
 };
+

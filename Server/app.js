@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,6 +9,8 @@ var indexRouter = require('./routes/indexRouter');
 
 var app = express();
 
+const {DBconnection} = require('./configs/DBconnection');
+DBconnection();
 // view engine setup
 
 
@@ -17,7 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/v1/', indexRouter);
+app.use('/api/v1', indexRouter);
 
 
 // catch 404 and forward to error handler

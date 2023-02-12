@@ -16,7 +16,7 @@ DBconnection();
 const cors = require("cors");
 app.use(
   cors({
-    origin: "https://code-ripper.vercel.app/",
+    origin: "https://code-ripper.vercel.app",
     credentials: true,
   })
 );

@@ -1,20 +1,16 @@
 import React from "react";
 import css from "./Card.module.css";
-import dustbin from "../../assets/dustbinhomepage.png";
-import boothDustbin from "../../assets/boothomepage.png";
-import earthIllustration from "../../assets/r3homepage.png";
+
 const Card = () => {
+
   return (
     <div className={`${css.cardWrapper} mb-5`}>
       <div
         className={`${css.heading} d-flex flex-column align-items-center w-100`}
       >
-        <h1 className={css.fontBold}>ATHENS SERVICES</h1>
+        <h1 id="serv" className={css.fontBold}>QUICKCLEAN SERVICES</h1>
         <p className={`${css.paraWidth} text-center`}>
-          Athens Services is a local, family-owned waste collection and
-          recycling company that has been a fixture in the greater Los Angeles
-          community for the past 60 years. We provide innovative, consistent,
-          and quality environmental services to our more than 250,000 customers.
+        QuickClean Solutions is a Bhopal-based startup dedicated to revolutionizing the waste management system. Utilizing cutting-edge technology and innovative methods, we aim to create sustainable solutions for communities and businesses to effectively manage and reduce waste. Our goal is to create a cleaner and greener environment for the people of Bhopal and beyond.
         </p>
       </div>
       <div className="d-flex justify-content-between">

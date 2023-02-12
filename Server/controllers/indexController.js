@@ -40,7 +40,7 @@ exports.login = AsyncError(async (req, res, next) => {
 /**@api POST / signup */
 exports.signup = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, contact } = req.body;
     // res.json(req.body)
     const defaultIMG =
       "https://img.freepik.com/free-psd/3d-illustration-person_23-2149436192.jpg?w=740&t=st=1665479565~exp=1665480165~hmac=a506127a19be062f341ab4d2e9767e3a1593d6e20efd3762ebfcb19cc39e49d1  ";

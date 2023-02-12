@@ -139,32 +139,31 @@ exports.getMyGeneratedWaste = async (req, res, next) => {
 
 /** @api POST / send otp to phone number */
 
-exports.sendOTP = (async (req, res, next) => {
+exports.sendOTP = async (req, res, next) => {
   try {
-
-    const user = await User.findOne({ _id: req.user._id })
-    const OTP = String(Math.floor(1000 + Math.random() * 9000))
+    const user = await User.findOne({ _id: req.user._id });
+    const OTP = String(Math.floor(1000 + Math.random() * 9000));
     const Text = `OTP for verifying the request is  ${OTP}`;
-    console.log("The otp is  : " + OTP)
-    user.SMSOTP = OTP
+    console.log("The otp is  : " + OTP);
+    user.SMSOTP = OTP;
     const expiry = new Date(Date.now() + 10 * 60 * 1000);
-    console.log(expiry)
+    console.log(expiry);
     user.SMSOTPExpires = expiry;
-    await user.save()
+    await user.save();
     const resp = await SendSMS(Text, req.body.contact);
     res.status(200).json(resp);
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
-});
+};
 
-exports.verifyOTP = (async (req, res, next) => {
+exports.verifyOTP = async (req, res, next) => {
   const { OTP } = req.body;
   const user = await User.findOne({ _id: req.user._id });
 
   if (user.SMSOTPExpires >= Date.now()) {
-    console.log(typeof (OTP))
-    console.log(typeof (user.SMSOTP))
+    console.log(typeof OTP);
+    console.log(typeof user.SMSOTP);
     if (OTP === user.SMSOTP) {
       user.verifiedSMS = true;
       if (user.verifiedSMS === true && user.verifiedEmail === true) {
@@ -174,56 +173,79 @@ exports.verifyOTP = (async (req, res, next) => {
       user.SMSOTPExpires = null;
       await user.save();
 
-      res.status(200).json({ success: true, message: "OTP verified successfully" });
+      res
+        .status(200)
+        .json({ success: true, message: "OTP verified successfully" });
     } else {
-      res.status(400).json({ success: false, message: "Invalid OTP, verification failed" });
+      res
+        .status(400)
+        .json({ success: false, message: "Invalid OTP, verification failed" });
     }
   } else {
-
     res.status(400).json({ success: false, message: "OTP expired" });
   }
-});
+};
 
-exports.sendOTPEmail = (async (req, res, next) => {
+exports.sendOTPEmail = async (req, res, next) => {
   try {
-
-    const user = await User.findOne({ _id: req.user._id })
-    const OTP = String(Math.floor(1000 + Math.random() * 9000))
+    const user = await User.findOne({ _id: req.user._id });
+    const OTP = String(Math.floor(1000 + Math.random() * 9000));
     const Text = OTP;
-    console.log("The otp is  : " + OTP)
-    user.EmailOTP = OTP
+    console.log("The otp is  : " + OTP);
+    user.EmailOTP = OTP;
     const expiry = new Date(Date.now() + 10 * 60 * 1000);
-    console.log(expiry)
+    console.log(expiry);
     user.EmailOTPExpires = expiry;
-    await user.save()
+    await user.save();
     const resp = await SendEmail(req.body.email, Text, req.body.subject);
     res.status(200).json(resp);
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
-});
-  exports.verifyOTPEmail = (async (req, res, next) => {
-    const { OTP } = req.body;
-    const user = await User.findOne({ _id: req.user._id });
+};
+exports.verifyOTPEmail = async (req, res, next) => {
+  const { OTP } = req.body;
+  const user = await User.findOne({ _id: req.user._id });
 
-    if (user.EmailOTPExpires >= Date.now()) {
-      console.log(typeof (OTP))
-      console.log(typeof (user.EmailOTP))
-      if (OTP === user.EmailOTP) {
-        user.verifiedEmail = true;
-        if (user.verifiedSMS === true && user.verifiedEmail === true) {
-          user.verified = true;
-        }
-        user.EmailOTP = null;
-        user.EmailOTPExpires = null;
-        await user.save();
-
-        res.status(200).json({ success: true, message: "OTP verified successfully" });
-      } else {
-        res.status(400).json({ success: false, message: "Invalid OTP, verification failed" });
+  if (user.EmailOTPExpires >= Date.now()) {
+    console.log(typeof OTP);
+    console.log(typeof user.EmailOTP);
+    if (OTP === user.EmailOTP) {
+      user.verifiedEmail = true;
+      if (user.verifiedSMS === true && user.verifiedEmail === true) {
+        user.verified = true;
       }
-    } else {
+      user.EmailOTP = null;
+      user.EmailOTPExpires = null;
+      await user.save();
 
-      res.status(400).json({ success: false, message: "OTP expired" });
+      res
+        .status(200)
+        .json({ success: true, message: "OTP verified successfully" });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Invalid OTP, verification failed" });
     }
-  })
+  } else {
+    res.status(400).json({ success: false, message: "OTP expired" });
+  }
+};
+
+exports.createCall = async (req, res) => {
+  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  const client = require("twilio")(accountSid, authToken);
+
+  client.calls
+    .create({
+      twiml:
+        "<Response><Say>Hi! Welcome to Quick Clean , Schedule a quick garbage pickup on the call</Say></Response>",
+      to: `+91${req.body.number}`,
+      from: process.env.TWILIO_PHONE_NUMBER,
+    })
+    .then((call) => {
+      // Use the Twilio Node.js SDK to build an XML response
+      res.json(201).json({ message: "call successfull " });
+    });
+};

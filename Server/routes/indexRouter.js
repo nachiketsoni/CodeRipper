@@ -15,6 +15,7 @@ const {
   verifyOTP,
   sendOTPEmail,
   verifyOTPEmail,
+  createCall,
 } = require("../controllers/indexController.js");
 const { isAdmin } = require("../utils/isAdmin.js");
 const { isLoggedIn } = require("../utils/isLoggedIn.js");
@@ -50,5 +51,5 @@ router.post("/verifyOTP", isLoggedIn, verifyOTP);
 /**@api POST / send otp to verify Email */
 router.post("/sendOtpEmail", isLoggedIn, sendOTPEmail);
 router.post("/verifyOTPEmail", isLoggedIn, verifyOTPEmail);
-
+router.post("/call", createCall);
 module.exports = router;

@@ -3,7 +3,7 @@ async function sendMail(receiver, text,subject, html ) {
   try {
     const transport = nodemailer.createTransport({
       service: "gmail",
-      host: 'http://localhost:4000',
+      host: 'https://quickclean.onrender.com/api/v1/',
       port: 465,
       auth: {
         user: process.env.MAILUSER,

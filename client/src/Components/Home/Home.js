@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import homeIllustration from "../../assets/image 1.png";
+import RequestViaNum from "../RequestViaNum/RequestViaNum";
 import Card from "./Card";
 import css from "./Home.module.css";
 import ServiceFirst from "./ServiceFirst";
@@ -33,6 +34,7 @@ const Home = () => {
       <ServiceSecond />
       <ServiceThird />
       <Subscription />
+      <RequestViaNum/>
     </Fragment>
   );
 };

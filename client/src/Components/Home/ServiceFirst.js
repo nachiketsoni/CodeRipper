@@ -20,7 +20,9 @@ const Services = () => {
             <h5 className={`${css.textMid}`}>
               Schedule a Quick Pickup through <br /> a single call of your phone
             </h5>
-            <button className={`${css.button}`}> Schedule Now</button>
+            <button type="button" className={`${css.button}`} data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Schedule Now
+</button>
           </div>
         </div>
       </div>

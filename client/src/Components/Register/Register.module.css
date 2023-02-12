@@ -24,7 +24,6 @@
     box-shadow: 10px 10px 30px 0px rgba(59, 59, 59, 0.297);
     border-radius: 20px 0px;
     flex-direction: column;
-    backdrop-filter: blur(1px);
 }
 
 #formBox{

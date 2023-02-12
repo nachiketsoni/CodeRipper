@@ -15,15 +15,14 @@ const Subscription = () => {
                   <div className="card">
                     <div className="card-header">
                       <span className="card-title">Starter</span>
-                      <h2 className="card-price"> <span className="text-decoration-line-through" >$30</span> Free</h2>
+                      <h2 className="card-price"> <span className="text-decoration-line-through" >100 ₹</span> Free</h2>
                     </div>
                     <div className="card-body">
                       <ul>
-                        <li>500 MAUs</li>
-                        <li>3 projects</li>
-                        <li>Unlimited guides</li>
-                        <li>Unlimited flows</li>
-                        <li>Unlimited branded themes</li>
+                        <li>Quick PickUp </li>
+                        <li>3 pick ups per month</li>
+                        <li>One time sewage cleanup</li>
+                        
                       </ul>
                     </div>
                     <div className="card-footer">
@@ -33,14 +32,14 @@ const Subscription = () => {
                   <div className="card">
                     <div className="card-header">
                       <span className="card-title">Premium</span>
-                      <h2 className="card-price">$50</h2>
+                      <h2 className="card-price">500 ₹</h2>
                     </div>
                     <div className="card-body">
                       <ul>
                         <li>All starter features, plus:</li>
-                        <li>Unlimited projects</li>
-                        <li>Unlimited fully customizable themes</li>
-                        <li>A dedicated Customer Success Manager</li>
+                        <li>Extra credits</li>
+                        <li>30 pickups per month</li>
+                        <li>Unlimited sewage clean up</li>
                         <li>Email support</li>
                         <li>IVRS Facility</li>
 

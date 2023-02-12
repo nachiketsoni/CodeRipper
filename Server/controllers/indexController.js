@@ -64,6 +64,7 @@ exports.signup = async (req, res, next) => {
       name,
       email,
       password,
+      contact,
       avatar: {
         public_id,
         url: secure_url,
@@ -137,7 +138,7 @@ exports.getMyGeneratedWaste = async (req, res, next) => {
 /** @api POST / send otp to phone number */
 
 exports.sendOTP = AsyncError(async (req, res, next) => {
-  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+ const accountSid = process.env.TWILIO_ACCOUNT_SID;
   const authToken = process.env.TWILIO_AUTH_TOKEN;
   const client = require("twilio")(accountSid, authToken);
   

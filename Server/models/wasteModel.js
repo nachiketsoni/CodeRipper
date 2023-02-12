@@ -3,17 +3,21 @@ const wasteSchema = Schema({
     name: {
         type: String,
         required: true,
+
     },
     email: {
         type: String,
+        required: true,
     },
     contact: {
         type: Number,
         required: true,
+
     },
     address: {
         type: String,
         required: true,
+
     },
     city: {
         type: String,
@@ -23,9 +27,10 @@ const wasteSchema = Schema({
         type: String,
         required: true,
     },
-    zipcode: {
+    pincode: {
         type: String,
         required: true,
+
     },
 
     type: {

@@ -13,6 +13,8 @@ const {
   getMyGeneratedWaste,
   sendOTP,
   verifyOTP,
+  sendOTPEmail,
+  verifyOTPEmail,
 } = require("../controllers/indexController.js");
 const { isAdmin } = require("../utils/isAdmin.js");
 const { isLoggedIn } = require("../utils/isLoggedIn.js");
@@ -44,4 +46,9 @@ router.get("/getMyGeneratedWaste", isLoggedIn, getMyGeneratedWaste);
 /**@api POST / send otp to phone number */
 router.post("/sendOtp", isLoggedIn, sendOTP);
 router.post("/verifyOTP", isLoggedIn, verifyOTP);
+
+/**@api POST / send otp to verify Email */
+router.post("/sendOtpEmail", isLoggedIn, sendOTPEmail);
+router.post("/verifyOTPEmail", isLoggedIn, verifyOTPEmail);
+
 module.exports = router;

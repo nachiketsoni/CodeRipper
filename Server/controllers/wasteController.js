@@ -4,7 +4,7 @@ const ErrorHandler = require("../utils/errorHandler.js");
 const AsyncError = require("../middleware/asyncErrors");
 
 exports.createWaste = async (req, res, next) => {
-    const { name, type, email ,contact , address , state , city , zipcode , pickUpDate , pickUpTime ,user  } = req.body;
+    const { name, type, email ,contact , address , state , city , pincode , pickUpDate , pickUpTime ,user  } = req.body;
     console.log(req.body)
     const waste = await Waste.create({
         name,
@@ -14,7 +14,7 @@ exports.createWaste = async (req, res, next) => {
         address,
         state,
         city,
-        zipcode,
+        pincode,
         pickUpDate,
         pickUpTime,
         user : req.user?._id,
@@ -49,7 +49,7 @@ exports.deleteWaste = async (req, res, next) => {
         success: true,
         waste,
     });
-} 
+}
 exports.allWaste = async (req, res, next) => {
     const waste = await Waste.find({});
     res.status(200).json({

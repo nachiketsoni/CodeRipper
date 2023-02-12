@@ -150,7 +150,7 @@ exports.sendOTP = AsyncError(async (req, res, next) => {
       to: `+91${req.body.number}`, // Text this number
       from: process.env.TWILIO_PHONE_NUMBER, // From a valid Twilio number
     })
-    .then((message) => res.json(201).json({ message: "OTP sent successfully" }))
+    .then((message) => res.status(201).json({ message: "OTP sent successfully" }))
     .catch((err) => {
       res.status(500).json(err);
     });

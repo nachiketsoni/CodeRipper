@@ -7,6 +7,9 @@ import Pickup from "./Components/Pickup/Pickup";
 
 import Register from "./Components/Register/Register";
 import Navbar from "./Components/Home/Navbar";
+import ContactUs from "./Components/Contact/ContactUs";
+import Profile from "./Components/Profile/Profile";
+// import Profile from "./Components/Profile/Profile";
 
 const App = () => {
   return (
@@ -15,6 +18,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/pickup" element={<Pickup />} />
+        <Route path="/contact" element={<ContactUs />} />
       </Routes>
     </BrowserRouter>
   );

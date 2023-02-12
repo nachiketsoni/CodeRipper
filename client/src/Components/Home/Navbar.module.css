@@ -1,21 +1,7 @@
-#SearchBox:focus {
-    /* border-color: #28a745; */
-    /* box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25); */
-} 
-.circle{
-    position: absolute;
-}
-.nav{
-    font-size: 26px;
-}
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-@media screen and (max-width: 800px) {
-    .circle{
-        opacity: 0.8;
-    }
-    .nav{
-        width:100%;
-        z-index: 9999;
-        font-size: 19px;
-    }
-  }
+h5 {
+  font-family: "Poppins";
+  font-weight: 800;
+  font-size: 1.1em;
+}

@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+.wrapper {
+  margin-top: 10vmax;
+  font-family: "Poppins";
+}
+
+.illustration {
+  height: 24vmax;
+}
+.right {
+  margin-left: 10vmax;
+}
+.textTop {
+  font-size: 1.8em;
+  font-weight: 800;
+}
+.textMid {
+  font-size: 1.2em;
+  color: rgb(93, 93, 93);
+}
+.button {
+  background-color: #d4fdc5 !important;
+  color: rgb(37, 87, 26) !important;
+  border: none;
+  padding: 0.8vmax;
+  border-radius: 0.5em;
+  margin-top: 1vmax;
+  font-weight: 900;
+}
+.illustrationSecond {
+  height: 20vmax;
+  margin-left: 1em;
+}

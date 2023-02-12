@@ -1,16 +1,13 @@
 import React from "react";
 import css from "./Services.module.css";
-
+import coinIllus from "../../assets/coinIllus.jpg";
 const ServiceThird = () => {
   return (
     <div
       className={`${css.wrapper} d-flex justify-content-center align-items-center `}
     >
       <div className={css.imageHolder}>
-        <img
-          className={css.illustration}
-          src="https://static.vecteezy.com/system/resources/thumbnails/000/379/337/small_2x/Business_2__2884_29.jpg"
-        ></img>
+        <img className={css.illustration} src={coinIllus}></img>
       </div>
 
       <div>

@@ -6,6 +6,7 @@ import { loadUserAsync } from "../../Store/UserSlice/Userslice";
 import css from "./Pickup.module.css";
 
 const Pickup = () => {
+  const navigate = useNavigate();
   const { user, isAuthenticated, error } = useSelector((state) => state.user);
 
   const [dets, setdets] = useState({
@@ -34,11 +35,10 @@ const Pickup = () => {
     setdets({ ...dets, [e.target.name]: e.target.value });
   };
 
-  console.log(dets);
-
   const SubmitHandler = (e) => {
     e.preventDefault();
     dispatch(saveDetails(dets));
+    navigate("/pickup/second");
   };
 
   return (
@@ -124,15 +124,22 @@ const Pickup = () => {
                 />
                 <button
                   onClick={SubmitHandler}
+                  disabled={
+                    dets.email ||
+                    dets.address ||
+                    dets.city ||
+                    dets.contact ||
+                    dets.name ||
+                    dets.pincode ||
+                    dets.state
+                      ? true
+                      : false
+                  }
                   className={`mb-3 ${css.btnType}`}
                   type="submit"
                 >
                   Next
                 </button>
-                <br></br>
-                <h3 className={`mt-1 ${css.link} fs-6`}>
-                  Already Have an Account ? Login Here
-                </h3>
               </form>
             </div>
           </div>

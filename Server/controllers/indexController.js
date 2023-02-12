@@ -15,7 +15,7 @@ exports.Homepage = (req, res) => {
 /**@api POST / login */
 exports.login = AsyncError(async (req, res, next) => {
   const { email, password } = req.body;
-
+  console.log(email, password);
   // checking if user has given password and email both
 
   if (!email || !password) {

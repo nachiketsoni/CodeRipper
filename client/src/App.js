@@ -9,7 +9,12 @@ import Register from "./Components/Register/Register";
 import Navbar from "./Components/Home/Navbar";
 import ContactUs from "./Components/Contact/ContactUs";
 import Profile from "./Components/Profile/Profile";
+
 import RequestViaNum from "./Components/RequestViaNum/RequestViaNum";
+
+import PickupSecond from "./Components/Pickup/PickupSecond";
+import PickupThird from "./Components/Pickup/PickupThird";
+
 // import Profile from "./Components/Profile/Profile";
 
 const App = () => {
@@ -21,6 +26,8 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/pickup" element={<Pickup />} />
+        <Route path="/pickup/second" element={<PickupSecond />} />
+        <Route path="/pickup/third" element={<PickupThird />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/reqViaNum" element={<RequestViaNum />} />
       </Routes>

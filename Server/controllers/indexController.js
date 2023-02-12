@@ -5,7 +5,7 @@ const { cloudinaryConfig } = require("../configs/cloudinary");
 const User = require("../models/userModel");
 const ErrorHandler = require("../utils/errorHandler.js");
 const AsyncError = require("../middleware/asyncErrors");
-
+const { SendSMS } = require("../utils/SendSMS");
 exports.Homepage = (req, res) => {
   res.status(200).json("Success!");
 };
@@ -137,21 +137,46 @@ exports.getMyGeneratedWaste = async (req, res, next) => {
 
 /** @api POST / send otp to phone number */
 
-exports.sendOTP = AsyncError(async (req, res, next) => {
- const accountSid = process.env.TWILIO_ACCOUNT_SID;
-  const authToken = process.env.TWILIO_AUTH_TOKEN;
-  const client = require("twilio")(accountSid, authToken);
-  
-  const OTP = Math.floor(1000 + Math.random() * 9000);
+exports.sendOTP = (async (req, res, next) => {
+  try{
 
-  client.messages
-    .create({
-      body: `OTP for verifying the request is ${OTP}`,
-      to: `+91${req.body.number}`, // Text this number
-      from: process.env.TWILIO_PHONE_NUMBER, // From a valid Twilio number
-    })
-    .then((message) => res.status(201).json({ message: "OTP sent successfully" }))
-    .catch((err) => {
-      res.status(500).json(err);
-    });
+    const user = await User.findOne({_id : req.user._id})
+    const OTP = String(Math.floor(1000 + Math.random() * 9000))
+    const Text = `OTP for verifying the request is  ${OTP}`;
+    console.log("The otp is  : "+OTP)
+    user.OTP = OTP
+    const expiry = new Date(Date.now() + 5 * 60 * 1000);
+    console.log(expiry)
+    user.OTPExpires = expiry;
+    await user.save()
+    const resp = await  SendSMS( Text, req.body.contact);
+    res.status(200).json(resp);
+  }catch(err){
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+exports.verifyOTP = (async (req, res, next) => {
+  const { OTP } = req.body;
+  const user = await User.findOne({ _id: req.user._id });
+
+  if (user.OTPExpires >= Date.now()) {
+    console.log(typeof(OTP))
+    console.log(typeof(user.OTP))
+    if (OTP === user.OTP) {
+      user.verified = true;
+      user.OTP = null;
+      user.OTPExpires = null;
+      await user.save();
+
+      res.status(200).json({success:true, message: "OTP verified successfully" });
+    } else {
+      res.status(400).json({success:false, message: "Invalid OTP, verification failed" });
+  }
+  } else {
+    // user.OTP = null;
+    // user.OTPExpires = null;
+    // await user.save();
+    res.status(400).json({success:false, message: "OTP expired" });
+  }
 });

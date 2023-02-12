@@ -81,6 +81,17 @@ const userSchema = Schema({
                     default:0
             
             },
+            verified:{
+                        type:Boolean,
+                        default:false
+                },
+            OTP:{
+                        type:String,    
+                        maxLength:4,
+                },
+                OTPExpires:Date,
+                
+
             createdAt:{
                     type:Date,
                     default:Date.now

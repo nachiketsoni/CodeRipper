@@ -1,9 +1,21 @@
 var express = require("express");
 var router = express.Router();
 
-const { Homepage, signup, login, logout, update, getSingleUser, getAllUsers, getLoggedInUser, getMyGeneratedWaste,sendOTP } = require('../controllers/indexController.js');
-const { isAdmin } = require('../utils/isAdmin.js');
-const { isLoggedIn } = require('../utils/isLoggedIn.js');
+const {
+  Homepage,
+  signup,
+  login,
+  logout,
+  update,
+  getSingleUser,
+  getAllUsers,
+  getLoggedInUser,
+  getMyGeneratedWaste,
+  sendOTP,
+  verifyOTP,
+} = require("../controllers/indexController.js");
+const { isAdmin } = require("../utils/isAdmin.js");
+const { isLoggedIn } = require("../utils/isLoggedIn.js");
 /* GET home page. */
 router.get("/", Homepage);
 
@@ -29,8 +41,7 @@ router.get("/getLoggedInUser", isLoggedIn, getLoggedInUser);
 
 router.get("/getMyGeneratedWaste", isLoggedIn, getMyGeneratedWaste);
 
-
-
 /**@api POST / send otp to phone number */
-router.post("/sendOtp", sendOTP);
+router.post("/sendOtp", isLoggedIn, sendOTP);
+router.post("/verifyOTP", isLoggedIn, verifyOTP);
 module.exports = router;

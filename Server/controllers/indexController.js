@@ -252,7 +252,7 @@ exports.createCall = async (req, res) => {
 
 exports.voice = async (request, response) => {
 
-
+  const VoiceResponse = require('twilio').twiml.VoiceResponse;
     // Use the Twilio Node.js SDK to build an XML response
     const twiml = new VoiceResponse();
     twiml.say({ voice: 'alice' }, 'hello world!');
